@@ -24,6 +24,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/c/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/c/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
 
 
 
@@ -70,8 +77,8 @@
     root: '/c/',
     scheme: 'Pisces',
     version: '7.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
     copycode: {"enable":false,"show_result":false,"style":null},
     fancybox: false,
     fastclick: false,
@@ -167,7 +174,8 @@
   
 
   <div class="container sidebar-position-left page-archive">
-    <div class="headband"></div>
+    <div class="headband">
+    </div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -355,9 +363,9 @@
 
       <h2 class="post-title">
         
-          <a class="post-title-link" href="/c/2019/07/17/hello-world/" itemprop="url">
+          <a class="post-title-link" href="/c/2019/07/17/main/" itemprop="url">
             
-              <span itemprop="name">Hello World</span>
+              <span itemprop="name">Welcome</span>
             
           </a>
         
@@ -443,6 +451,54 @@
 
 
 
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/vernll/c" title="GitHub &rarr; https://github.com/vernll/c" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" title="QQ &rarr; http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/d91c48f2547f" title="简书 &rarr; https://www.jianshu.com/u/d91c48f2547f" rel="noopener" target="_blank"><i class="fa fa-fw fa-align-right"></i>简书</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://juejin.im/user/5c75efd9e51d4565fd268e43" title="掘金 &rarr; https://juejin.im/user/5c75efd9e51d4565fd268e43" rel="noopener" target="_blank"><i class="fa fa-fw fa-pied-piper"></i>掘金</a>
+      </span>
+    
+  </div>
+
 
 
 
@@ -481,15 +537,9 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
 
 
 
@@ -510,6 +560,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
