@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/c/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/c/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/c/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/c/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/c/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/c/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/c/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/c/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/c/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
+<meta name="keywords" content="React.js,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="认知 React16 Fiber架构">
+<meta property="og:url" content="http://yoursite.com/posts/65e97272.html">
+<meta property="og:site_name" content="饮杯梦回酒">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-18T12:56:08.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="认知 React16 Fiber架构">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/posts/65e97272">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>认知 React16 Fiber架构 | 饮杯梦回酒</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+    </div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/c/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">饮杯梦回酒</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">vern.online</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/c/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/c/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/c/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/c/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/c/posts/65e97272.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wine Vern">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/c/uploads/wrf.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="饮杯梦回酒">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">认知 React16 Fiber架构
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-18 19:25:00 / 修改时间：20:56:08" itemprop="dateCreated datePublished" datetime="2019-07-18T19:25:00+08:00">2019-07-18</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/c/categories/React16/" itemprop="url" rel="index"><span itemprop="name">React16</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="预热"><a href="#预热" class="headerlink" title="预热"></a>预热</h2><ul>
+<li>在 React 16 这个版本中，React 团队正式的实现了 React Fiber 架构，这全新的架构是对于老版本的 React 的核心算法的完全重构。</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>​        首先我们稍微回顾一下几个概念：</p>
+<ul>
+<li><p>虚拟 DOM（Virtual DOM）：更多的是一个编程的概念，所谓的虚拟就是把真实的 UI DOM 通过某种方式先保存在内存中，有点像是双缓冲，然后通常先修改内存中虚拟 DOM，然后再把虚拟 DOM 的更改同步到真实的 DOM 元素中。</p>
+</li>
+<li><p>元素（Element）: 用来描述真实 DOM 元素或者 React 组件实例以及其所需属性的对象。</p>
+<ul>
+<li><p>组件元素：我们平时用 Class 或者 Function 写的一个个的 React 组件</p>
+</li>
+<li><p>DOM 元素：HTML 自带的一些 DOM 元素，比如 div，a，input，p 等等</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>比如下面这段代码，描述了一个我们自己定义的 Form组件 MyForm，里面包含了一个真实 DOM 元素 input 元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: &apos;MyForm&apos;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    className: &apos;my-form&apos;,</span><br><span class="line">    children: &#123;</span><br><span class="line">      type: &apos;input&apos;,</span><br><span class="line">      props: &#123;</span><br><span class="line">        placeholder: &apos;输入一些文字&apos;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 转换成 JSX 的语法就是</span><br><span class="line">&lt;MyForm className=&quot;my-form&quot;&gt;</span><br><span class="line">    &lt;input placeholder=&quot;输入一些文字&quot; /&gt;</span><br><span class="line">&lt;/MyForm&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>​问题就出在这一整个从渲染、比对树结构 到 提交DOM变更的一系列操作是不停止的，在大型应用中，会触发大量的更新运行过长的时间，导致浏览器失帧，从而带来非常糟糕的用户体验，也就会用户感受一种卡顿的感受。而 React Fiber 就是需要解决这个问题？非常直观的，可以想到：</p>
+<p>1.许多的更新操作，中间的计算操作，我们并不需要及时的做完、及时的反应，而是只要在空闲的做就可以了，比如屏幕外组件的更新等等。</p>
+<p>2.不同的操作之间其实是有优先级的，比如动画、用户交互（输入文字、点击等等），这些用户直观的感受的东西是需要及时的处理和反应的，动画需要保持60fps，输入文字需要马上出现等等。</p>
+<p>知道问题所在以及我们直观的感受，就能够理解需要解决的问题是什么了。<strong>如果能够通过某种方式可以调度这些操作，把操作按优先级排列，在有限的帧时间内，执行优先级高的操作，时间不够，那么就把其他操作在放到下一帧去执行，保证连贯性。岂不妙哉 ~</strong></p>
+<p>其实 React Fiber 就是做了这么一个<strong>操作分解</strong>和<strong>优先级调度</strong>的事情，讲起来容易，做起来难啊！React 团队从提出 Fiber 架构到实现花了至少2年时间，可见这个问题，好理解，但是真正实现起来真的是不容易啊！！</p>
+<p>以下乃个人浅见，来详细阐述下 React Fiber 架构具体是怎么样？是如何实现的？React Fiber 所要实现的不是让 React 更快，而是让用户体验更加的丝般顺滑。</p>
+<h2 id="React-Fiber"><a href="#React-Fiber" class="headerlink" title="React Fiber"></a>React Fiber</h2><p>为了能够调度 React 的操作，那么首先必须要想一办法能够把各种操作分解为一个个小的单元方便调度，首先要有能够调度的对象。而 Fiber 就代表了一个单元的工作，这是 React 中对于调度工作的抽象。每个 Fiber 都对应一个组件所要做的工作（完成或者未完成的），因此一个组件可能会有多个 Fiber 去完成这个组件渲染需要完成的工作的。</p>
+<p>在 React 框架工作的时候，不管是老的算法还是新的 React Fiber 架构都是分为两个阶段。</p>
+<p>1.Render/Reconcilition：在这个阶段呢，React 在内存中做计算，主要做以下一些事情：寻找 Element Tree 的更新点，并转换成合并为单次 DOM操作。</p>
+<p>2.Commit： 这个阶段主要是把上个阶段生成的 DOM 操作去真正的执行。</p>
+<p>这两个阶段也定义了，在 React 中我们所谓的渲染只是在内存中的计算，而第二阶段才是真正的应用到 DOM 元素中。React Fiber 架构是对第一阶段的一种重构实现，老的算法和新的算法的的区别就是在这个阶段。</p>
+<p>老的算法的执行是：Render -&gt; 只要出发就不停的一大堆计算 -&gt; Commit 提交</p>
+<p>新的算法的执行是：Render -&gt; 一个个小的工作单元                        | —-&gt; 异步执行完成后 -&gt; Commit提交</p>
+<p>​                   | —&gt; 异步分散在不同的帧中执行</p>
+<p>React Fiber 架构实现了对于第一阶段渲染阶段的异步优先级执行，把一大堆本来不能停止的计算，分解成一个个小的工作单元，并且可以控制其什么时候优先执行、停止。每一个工作单位称之为 Fiber，这里是 React 的一种提法，下面我们看看什么是 Fiber。</p>
+<h3 id="Fiber"><a href="#Fiber" class="headerlink" title="Fiber"></a>Fiber</h3><p>在代码中，Fiber 是 React 定义的一种数据结构，这个数据结构是原有 React 的元素数据结构的升级版，它包含了每个 Fiber 对应的元素的信息、该元素的更新操作队列、类型等。</p>
+<p>React 运行时存在 3 种实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DOM 真实DOM节点</span><br><span class="line">-------</span><br><span class="line">Instances React维护的vDOM tree node</span><br><span class="line">-------</span><br><span class="line">Elements 描述UI长什么样子（type, props）</span><br></pre></td></tr></table></figure>
+
+<p>Fiber 之前的 Reconciler（被称为Stack reconciler）自顶向下的递归 mount/update，无法中断（持续占用主线程），这样主线程上的布局、动画等周期性任务以及交互响应就无法立即得到处理，有时会影响用户体验。</p>
+<p>Fiber 解决这个问题的思路是把渲染/更新过程（递归diff）拆分成一系列小任务，每次检查树上的一小部分，做完看是否还有时间继续下一个任务，有的话继续，没有的话把自己挂起，主线程不忙的时候再继续.</p>
+<p>增量更新需要更多的上下文信息，之前的 vDOM tree 显然难以满足，所以扩展出了 fiber tree（即 Fiber 上下文的 vDOM tree），更新过程就是根据输入数据以及现有的 fiber tree 构造出新的 fiber tree（workInProgress tree）。运行实例变成了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DOM</span><br><span class="line">    真实DOM节点</span><br><span class="line">-------</span><br><span class="line">effect</span><br><span class="line">    每个workInProgress tree节点上都有一个effect list</span><br><span class="line">    用来存放diff结果</span><br><span class="line">    当前节点更新完毕会向上merge effect list（queue收集diff结果）</span><br><span class="line">- - - -</span><br><span class="line">workInProgress       //临时结构</span><br><span class="line">    workInProgress tree是reconcile过程中从fiber tree建立的当前进度快照，用于断点恢复</span><br><span class="line">- - - -</span><br><span class="line">fiber                //临时结构</span><br><span class="line">    fiber tree与vDOM tree类似，用来描述增量更新所需的上下文信息</span><br><span class="line">-------</span><br><span class="line">Elements</span><br><span class="line">    描述UI长什么样子（type, props）</span><br></pre></td></tr></table></figure>
+
+<h3 id="Fiber-执行队列"><a href="#Fiber-执行队列" class="headerlink" title="Fiber 执行队列"></a>Fiber 执行队列</h3><p>Fiber 的结构中有一个 alternate 字段存放着正在工作的 Fiber，两者都有一个更新队列，每一个更新对同时入列到两个队列中。下面这个例子摘自React的源码。</p>
+<p>Current Fiber Update Queue:                A1    B2    C1    D2    E4    F5</p>
+<p>Work-In-Progress Update Queue:                                     E4    F5</p>
+<p>大多时候，工作中的更新队列会比当前队列的更新少，表示有些更新（A B C D）已经完成。那么ABCD完成的顺序并非是按顺序来的。</p>
+<p>比如，当前的状态是 ‘ ‘，表示空，现在是上述四个更新</p>
+<p>A1 - B2 - C1 - D2</p>
+<p>其中数字表示优先级，字母表示更新的状态。</p>
+<p>第一轮更新的时候，优先级是1：</p>
+<ul>
+<li><p>初始状态：’ ‘</p>
+</li>
+<li><p>[A1, C1] 完成，</p>
+</li>
+<li><p>最终的状态是AC。</p>
+</li>
+</ul>
+<p>第二轮更新的时候，优先级是2:</p>
+<ul>
+<li><p>初始状态：A。这里是比较tricky的地方，由于第一次更新把B2给漏掉了，那么第二轮更新的时候，会重新从B2开始C1。所以在新版中，同一个更新可能会被执行两遍，不影响最终状态。</p>
+</li>
+<li><p>[B2, C1, D2] 完成</p>
+</li>
+<li><p>最终状态是 ABCD</p>
+</li>
+</ul>
+<p>React是按照顺序遍历的，有任何的更新跳过，在下一轮中都会重新执行一遍，虽然会多次执行，但是最后是保证最终的状态一致性的。</p>
+<h3 id="Updater"><a href="#Updater" class="headerlink" title="Updater"></a>Updater</h3><pre><code>...</code></pre><h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><pre><code>...</code></pre><h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><pre><code>...</code></pre><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过网上的一些文章，React 团队的视频演讲，再加上对于源码的阅读，以上是自己的一个总结和思考理解的过程。</p>
+<p>理解 React Fiber 的过程，其实已经是对 React 整个框架有了一个全面的了解了，React Fiber 作为新版 React 的核心部分，比起老版的实现是完全不同，试一次全面的升级版。了解 React Fiber 的过程让我对 React 这个框架有了更深的理解，也会对自己写 React 前端代码的时候起到指导意义。</p>
+<p>总的来说算是对于新版 React 核心机制的自己的一个总结吧，我觉得新版的 React 实现不是一天两天能够完全去消化的，React 团队花费多年的心血，看着源码确实很多优雅的细节。整个过程不仅仅是理解 React 的实现机制，也包括前端代码的书写、工程规范、测试等等方方面面都能够学到。</p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/c/tags/React-js/" rel="tag"># React.js</a>
+          
+            <a href="/c/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/c/posts/5555e1c6.html" rel="next" title="不忘初心">
+                <i class="fa fa-chevron-left"></i> 不忘初心
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/c/uploads/wrf.jpg" alt="Wine Vern">
+  
+  <p class="site-author-name" itemprop="name">Wine Vern</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/c/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/c/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/c/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/vernll/c" title="GitHub &rarr; https://github.com/vernll/c" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" title="QQ &rarr; http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/d91c48f2547f" title="简书 &rarr; https://www.jianshu.com/u/d91c48f2547f" rel="noopener" target="_blank"><i class="fa fa-fw fa-align-right"></i>简书</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://juejin.im/user/5c75efd9e51d4565fd268e43" title="掘金 &rarr; https://juejin.im/user/5c75efd9e51d4565fd268e43" rel="noopener" target="_blank"><i class="fa fa-fw fa-pied-piper"></i>掘金</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预热"><span class="nav-number">1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Fiber"><span class="nav-number">4.</span> <span class="nav-text">React Fiber</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fiber"><span class="nav-number">4.1.</span> <span class="nav-text">Fiber</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fiber-执行队列"><span class="nav-number">4.2.</span> <span class="nav-text">Fiber 执行队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Updater"><span class="nav-number">4.3.</span> <span class="nav-text">Updater</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行流程"><span class="nav-number">5.</span> <span class="nav-text">执行流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新"><span class="nav-number">5.1.</span> <span class="nav-text">更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wine Vern</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/c/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/c/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/c/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/c/js/utils.js?v=7.2.0"></script>
+
+  <script src="/c/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/c/js/affix.js?v=7.2.0"></script>
+
+  <script src="/c/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/c/js/scrollspy.js?v=7.2.0"></script>
+<script src="/c/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/c/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+<script src="/c/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/c/live2dw/assets/Epsilon2.1.model.json"},"display":{"position":"right","width":280,"height":560},"mobile":{"show":true}});</script></body>
+</html>
