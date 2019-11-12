@@ -46,6 +46,38 @@
 
 
 
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
 
 
 
@@ -111,15 +143,15 @@
   <meta name="description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
 <meta name="keywords" content="Webpack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Webpack 4.0 私人体验">
+<meta property="og:title" content="Webpack Bundler">
 <meta property="og:url" content="http://yoursite.com/posts/c7c37721.html">
 <meta property="og:site_name" content="饮杯梦回酒">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/posts/c7c37721/webpack.gif">
-<meta property="og:updated_time" content="2019-09-04T07:56:49.947Z">
+<meta property="og:updated_time" content="2019-11-12T12:27:05.871Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Webpack 4.0 私人体验">
+<meta name="twitter:title" content="Webpack Bundler">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
 <meta name="twitter:image" content="http://yoursite.com/posts/c7c37721/webpack.gif">
 
@@ -140,7 +172,7 @@
 </script>
 
   
-  <title>Webpack 4.0 私人体验 | 饮杯梦回酒</title>
+  <title>Webpack Bundler | 饮杯梦回酒</title>
   
 
 
@@ -206,7 +238,7 @@
     </div>
     
       
-        <p class="site-subtitle">vern.online</p>
+        <p class="site-subtitle">vn.online</p>
       
     
     
@@ -343,7 +375,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/c7c37721.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wine Vern">
+      <meta itemprop="name" content="Wine Vn">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/uploads/wrf.jpg">
     </span>
@@ -357,7 +389,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Webpack 4.0 私人体验
+          <h1 class="post-title" itemprop="name headline">Webpack Bundler
 
               
             
@@ -386,13 +418,23 @@
                 
               
 
-              <time title="创建时间：2019-09-04 13:24:04 / 修改时间：15:56:49" itemprop="dateCreated datePublished" datetime="2019-09-04T13:24:04+08:00">2019-09-04</time>
+              <time title="创建时间：2019-09-04 13:24:04" itemprop="dateCreated datePublished" datetime="2019-09-04T13:24:04+08:00">2019-09-04</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-12 20:27:05" itemprop="dateModified" datetime="2019-11-12T20:27:05+08:00">2019-11-12</time>
+              </span>
             
           
 
@@ -452,7 +494,7 @@
 <p><img src="c7c37721/webpack.gif" alt="Webpakc Bundle"></p>
 <h2 id="Ready"><a href="#Ready" class="headerlink" title="Ready"></a>Ready</h2><ol>
 <li>your computer shoule have Node.js environment</li>
-<li>excuting an order :  <code>npm install webpack webpakc-cli -g</code><br>(this can only support one version, if you want to support free, please install them inside the project)</li>
+<li>excuting an order :  &gt; npm install webpack webpakc-cli -g<br>(this can only support one version, if you want to support free, please install them inside the project)</li>
 <li>make a direction and use npm init</li>
 <li>now everything is already, lets go</li>
 </ol>
@@ -463,7 +505,7 @@
 <li>use file-loader to resovle the problem:</li>
 <li>url-loader and file-loader </li>
 </ol>
-
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> parser = <span class="built_in">require</span>(<span class="string">"@babel/parser"</span>);</span><br><span class="line"><span class="keyword">const</span> traverse = <span class="built_in">require</span>(<span class="string">"@babel/traverse"</span>).default;</span><br><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">"@babel/core"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; filename</span></span><br><span class="line"><span class="comment"> * @description module analyse </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> moduleAnalyser = <span class="function"><span class="params">filename</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> content = fs.readFileSync(filename, <span class="string">"utf-8"</span>);</span><br><span class="line">  <span class="keyword">const</span> ast = parser.parse(content, &#123;</span><br><span class="line">    sourceType: <span class="string">"module"</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> dependencies = &#123;&#125;;</span><br><span class="line">  traverse(ast, &#123;</span><br><span class="line">    ImportDeclaration(&#123; node &#125;) &#123;</span><br><span class="line">      <span class="keyword">const</span> dirname = path.dirname(filename);</span><br><span class="line">      <span class="keyword">const</span> newFile = <span class="string">"./"</span> + path.join(dirname, node.source.value);</span><br><span class="line">      dependencies[node.source.value] = newFile.replace(<span class="regexp">/\\/g</span>, <span class="string">"/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">console</span>.log(dependencies);</span><br><span class="line">  <span class="keyword">const</span> &#123; code &#125; = babel.transformFromAst(ast, <span class="literal">null</span>, &#123;</span><br><span class="line">    presets: [<span class="string">"@babel/preset-env"</span>]</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    filename,</span><br><span class="line">    dependencies,</span><br><span class="line">    code</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; entry</span></span><br><span class="line"><span class="comment"> * @description  make dependencies graph</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> makeDependenciesGraph = <span class="function"><span class="params">entry</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> entryModule = moduleAnalyser(entry);</span><br><span class="line">  <span class="keyword">const</span> graphArray = [entryModule];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; graphArray.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; dependencies &#125; = graphArray[i];</span><br><span class="line">    <span class="keyword">for</span> (v <span class="keyword">in</span> dependencies) &#123;</span><br><span class="line">      graphArray.push(moduleAnalyser(dependencies[v]));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> graphObject = &#123;&#125;;</span><br><span class="line">  graphArray.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    graphObject[item.filename] = item;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">console</span>.log(graphObject);</span><br><span class="line">  <span class="keyword">return</span> graphObject;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param &#123;String&#125; entry</span></span><br><span class="line"><span class="comment"> * @description generate bundle code </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> gengerateCode = <span class="function"><span class="params">entry</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> graphInfo = <span class="built_in">JSON</span>.stringify(makeDependenciesGraph(entry));</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">  (function(graph) &#123;</span></span><br><span class="line"><span class="string">    function require(module) &#123;</span></span><br><span class="line"><span class="string">      function localRequire(relativePath) &#123;</span></span><br><span class="line"><span class="string">        return require(graph[module].dependencies[relativePath]);</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      var exports = &#123;&#125;;</span></span><br><span class="line"><span class="string">      (function(require, exports, code) &#123;</span></span><br><span class="line"><span class="string">        eval(code);</span></span><br><span class="line"><span class="string">      &#125;)(localRequire, exports, graph[module].code);</span></span><br><span class="line"><span class="string">      return exports;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    require('<span class="subst">$&#123;entry&#125;</span>')</span></span><br><span class="line"><span class="string">  &#125;)(<span class="subst">$&#123;graphInfo&#125;</span>)`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = gengerateCode(<span class="string">"./src/index.js"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(code);</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -573,9 +615,9 @@
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   
-    <img class="site-author-image" itemprop="image" src="/uploads/wrf.jpg" alt="Wine Vern">
+    <img class="site-author-image" itemprop="image" src="/uploads/wrf.jpg" alt="Wine Vn">
   
-  <p class="site-author-name" itemprop="name">Wine Vern</p>
+  <p class="site-author-name" itemprop="name">Wine Vn</p>
   <div class="site-description motion-element" itemprop="description"></div>
 </div>
 
@@ -717,7 +759,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Concepts"><span class="nav-number">1.</span> <span class="nav-text">Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ready"><span class="nav-number">2.</span> <span class="nav-text">Ready</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">3.</span> <span class="nav-text">Configuration</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Concepts"><span class="nav-number">1.</span> <span class="nav-text">Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ready"><span class="nav-number">2.</span> <span class="nav-text">Ready</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">3.</span> <span class="nav-text">Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">4.</span> <span class="nav-text">Code</span></a></li></ol></div>
             
 
           </div>
@@ -742,7 +784,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Wine Vern</span>
+  <span class="author" itemprop="copyrightHolder">Wine Vn</span>
 
   
 
