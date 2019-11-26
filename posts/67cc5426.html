@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+ <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: ""
+    });
+  daovoice('update');
+</script>
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
+<meta name="keywords" content="Chrome">
+<meta property="og:type" content="article">
+<meta property="og:title" content="V8 引擎垃圾回收机制分析">
+<meta property="og:url" content="http://yoursite.com/posts/67cc5426.html">
+<meta property="og:site_name" content="饮杯梦回酒">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/1574733975060.png">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/003.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/004.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/005.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/006.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/007.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/008.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/009.jpg">
+<meta property="og:image" content="http://yoursite.com/posts/67cc5426/010.jpg">
+<meta property="og:updated_time" content="2019-11-26T07:47:43.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="V8 引擎垃圾回收机制分析">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;e">
+<meta name="twitter:image" content="http://yoursite.com/posts/67cc5426/1574733975060.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/posts/67cc5426">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>V8 引擎垃圾回收机制分析 | 饮杯梦回酒</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+    </div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">饮杯梦回酒</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">vn.online</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-我们">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>我们</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-相片">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/photowall/" rel="section"><i class="menu-item-icon fa fa-fw fa-picture-o"></i> <br>相片</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    <!-- <a href="https://github.com/vernll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a> -->
+
+    <a href="https://github.com/vernll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/67cc5426.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="o1wish">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/wrf.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="饮杯梦回酒">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">V8 引擎垃圾回收机制分析
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-25 20:19:39" itemprop="dateCreated datePublished" datetime="2019-11-25T20:19:39+08:00">2019-11-25</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-26 15:47:43" itemprop="dateModified" datetime="2019-11-26T15:47:43+08:00">2019-11-26</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Chrome/" itemprop="url" rel="index"><span itemprop="name">Chrome</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
+<h2 id="V8-内存限制"><a href="#V8-内存限制" class="headerlink" title="V8 内存限制"></a>V8 内存限制</h2><p>​ V8 只能使用系统的一部分内存，具体来说，在 <code>64</code> 位系统下，V8 能分配的约 <code>1.4G</code> ，在 32 位系统中，能分配的约 <code>700M</code> 。</p>
+<p>​ 我们知道对于栈内存而言，当 ESP 指针下移，也就是上下文切换之后，栈顶的空间会自动被回收；但是对于堆内存而言就比较复杂了，下面我们就来分析一下：</p>
+<ul>
+<li><p>首先所有 Object 类型的数据在 JavaScript 中都是通过堆进行空间分配的。当我们构造出一个对象进行赋值操作的时候，其实对应的内存已经被分配到了堆上。你可以这样不断地创建对象让 V8 为它分配内存空间，直到达到堆内存的上限。</p>
+<p><strong>那么问题来了，V8 为什么要给它设置上限？明明我机器几十 G 的内存，只能让我用这么一点？</strong></p>
+<p><strong>究其根本，其实是由 2 个因素共同决定的，一是 JavaScript 单线程执行机制，二是 V8 垃圾回收机制。</strong></p>
+<p>首先 JavaScript 是单线程运行，那么在执行垃圾回收的时候，其它的运行逻辑都会被暂停，另外垃圾回收实际是很耗时的操作，V8 官方是这么描述的：</p>
+<blockquote>
+<p>在 Chrome 中，我们致力于提供每秒 60 帧（FPS）的流畅视觉体验。尽管 V8 已经尝试在较小的块中执行垃圾回收，但是较大的垃圾回收操作可能并且确实会在不可预测的时间（有时是在动画的中间）发生，从而暂停执行并阻止 Chrome 达到 60 FPS 的目标。</p>
+</blockquote>
+<p>所以其它逻辑的代码一旦不能在有效时间内进行响应，就会造成应用卡顿，从而导致应用性能的下降。</p>
+</li>
+</ul>
+<h2 id="深入研究-V8-的垃圾收集引擎"><a href="#深入研究-V8-的垃圾收集引擎" class="headerlink" title="深入研究 V8 的垃圾收集引擎"></a>深入研究 V8 的垃圾收集引擎</h2><p>​V8 使用了<a href="http://www.memorymanagement.org/glossary/g.html#term-generational-garbage-collection" target="_blank" rel="noopener">代垃圾回收器，</a>其中的 Javascript 堆分为新分配的对象的年轻小一代和长期存在的对象的大老一代。<a href="http://www.memorymanagement.org/glossary/g.html#term-generational-hypothesis" target="_blank" rel="noopener">由于大多数对象都死于年轻</a>，因此这种世代相传的策略使垃圾收集器能够在较小的年轻世代（称为清道夫）中执行常规的短时间垃圾收集，而不必在老一代中跟踪对象。</p>
+<p><img src="67cc5426/1574733975060.png" alt="1574733975060"></p>
+<p>​ 新生代采用半空间分配策略，其中新对象最初是在新生代的活动半空间中分配的（ From ），一旦该半空间变满，清除操作会将活动对象移动到另一半空间（ To ），接下来我会结合流程来详细说明 <strong>Scavenge</strong> 算法是怎么工作的。（ 其中 GC 代表垃圾回收器，全拼 Garbage Collection ）</p>
+<p>​ <strong>Step 1 ：</strong> 产生了 3 个新对象 A、B、C，分配到 From 空间</p>
+<p><img src="67cc5426/003.jpg" alt="003"></p>
+<p>​ <strong>Step 2 ：</strong> 一定周期之后执行垃圾回收，GC 判断 B 没有被全局引用，可被回收，A、C 依然为活跃对象</p>
+<p><img src="67cc5426/004.jpg" alt="004"></p>
+<p>​ <strong>Step 3：</strong> 将活跃对象 A、C 从 From 空间移动到 To 空间</p>
+<p><img src="67cc5426/005.jpg" alt="005"></p>
+<p>​ <strong>Step 4：</strong> 清空 From 空间的全部内存，交换 From 空间和 To 空间</p>
+<p><img src="67cc5426/006.jpg" alt="006"></p>
+<p>​ <strong>Step 5：</strong> 又新增了 2 个新对象，在 From 空间为它们分配内存</p>
+<p><img src="67cc5426/007.jpg" alt="007"></p>
+<p>​ 以上步骤就是 <strong>Scavenge</strong> 的一个周期，当一个对象经过多次移动仍然存活且 To 空间使用率超过 25% 时，它会被认为是生命周期较长的对象，而这种生命周期较长的对象则会被移动到老生代中，采用新的算法进行管理。</p>
+<p>​ 由于 <strong>Scavenge</strong> 是典型的的牺牲空间换取时间的算法，所以无法大规模应用到所有的垃圾回收中。但我们可以看到，<strong>Scavenge</strong> 非常适合新生代，因为新生代生命周期较短，恰恰适合这个算法，但老生代就不一样了，我们来看 V8 官方描述的一段话：</p>
+<blockquote>
+<p>当旧代中活动对象的大小超出启发式限制时，将执行整个堆的主要收集。老一代使用带有多种优化功能的<a href="http://www.memorymanagement.org/glossary/m.html#term-mark-sweep" target="_blank" rel="noopener">标记清除收集器</a>来改善延迟和内存消耗。标记等待时间取决于必须标记的活动对象的数量，对于大型 Web 应用程序，标记整个堆可能要花费 100 毫秒以上。为了避免长时间中断主线程，V8 长期以来具有<a href="https://blog.chromium.org/2011/11/game-changer-for-interactive.html" target="_blank" rel="noopener">以许多小步</a>长<a href="https://blog.chromium.org/2011/11/game-changer-for-interactive.html" target="_blank" rel="noopener">增量标记活动对象</a>的能力，目的是将每个标记步长保持在 5 ms 以下。</p>
+</blockquote>
+<p>​V8 老生代主要采用 <strong>标记清除（Mark-Sweep）</strong>和 <strong>标记整理（Mark-Compact）</strong>相结合的方式进行垃圾回收。下面我们一样还是通过流程来说明。</p>
+<p>​ <strong>Step 1：</strong> 老生代有存活对象 A、B、C、D、E</p>
+<p><img src="67cc5426/008.jpg" alt="008"></p>
+<p>​ <strong>Step 2：</strong> GC 进入标记阶段，将 A、C、E 标记为存活对象</p>
+<p><img src="67cc5426/009.jpg" alt="009"></p>
+<p>​ <strong>Step 3：</strong> GC 进入清除阶段，回收掉死亡的 B、D 对象所占用的空间</p>
+<p><img src="67cc5426/010.jpg" alt="010"></p>
+<p>那么问题就出来了，在进行了一次 <strong>标记清除（Mark-Sweep）</strong>后，内存空间会出现不连续的状态，这就称之为 <strong>内存碎片</strong>，这种碎片会对后面连续内存的分配造成问题，极易造成提前触发下一轮垃圾回收，给 V8 性能带来压力。</p>
+<p><span style="color: #ccc">Reference：</span><a href="https://v8.dev/blog/free-garbage-collection" target="_blank" rel="noopener"> https://v8.dev/blog/free-garbage-collection</a></p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Chrome/" rel="tag"># Chrome</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/20191125_Sinking.html" rel="next" title="不忘初心">
+                <i class="fa fa-chevron-left"></i> 不忘初心
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/uploads/wrf.jpg" alt="o1wish">
+  
+  <p class="site-author-name" itemprop="name">o1wish</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/vernll/c" title="GitHub &rarr; https://github.com/vernll/c" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/d91c48f2547f" title="简书 &rarr; https://www.jianshu.com/u/d91c48f2547f" rel="noopener" target="_blank"><i class="fa fa-fw fa-xing"></i>简书</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" title="QQ &rarr; http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://juejin.im/user/5c75efd9e51d4565fd268e43" title="掘金 &rarr; https://juejin.im/user/5c75efd9e51d4565fd268e43" rel="noopener" target="_blank"><i class="fa fa-fw fa-yelp"></i>掘金</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#V8-内存限制"><span class="nav-number">1.</span> <span class="nav-text">V8 内存限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入研究-V8-的垃圾收集引擎"><span class="nav-number">2.</span> <span class="nav-text">深入研究 V8 的垃圾收集引擎</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">o1wish</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/Epsilon2.1.model.json"},"display":{"position":"right","width":124,"height":260},"mobile":{"show":true}});</script></body>
+</html>

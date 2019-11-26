@@ -1,1290 +1,458 @@
+
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-CN">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222"/>
-
-
-
-
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"/>
-  
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"/>
-
-<link rel="stylesheet" href="/css/main.css?v=7.2.0"/>
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '7.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    translation: {
-      copy_button: '复制',
-      copy_success: '复制成功',
-      copy_failure: '复制失败'
-    }
-  };
-</script>
-
- <script>
-  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
-  daovoice('init', {
-      app_id: ""
-    });
-  daovoice('update');
-</script>
-
-  <meta name="description" content="jquery实现的图片相册代码                                     h2 {         font-size: 40px;         margin: 50px;         color: #333;       }       span.reference {         font-family: Arial;">
-<meta property="og:type" content="website">
-<meta property="og:title" content="饮杯梦回酒">
-<meta property="og:url" content="http://yoursite.com/photowall/index.html">
-<meta property="og:site_name" content="饮杯梦回酒">
-<meta property="og:description" content="jquery实现的图片相册代码                                     h2 {         font-size: 40px;         margin: 50px;         color: #333;       }       span.reference {         font-family: Arial;">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album1/thumbs/1.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album1/thumbs/2.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album1/thumbs/3.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album1/thumbs/4.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album1/thumbs/5.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album1/thumbs/6.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album2/thumbs/1.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album2/thumbs/2.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album2/thumbs/3.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album2/thumbs/4.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album2/thumbs/5.jpg">
-<meta property="og:image" content="http://yoursite.com/photowall/images/album2/thumbs/6.jpg">
-<meta property="og:updated_time" content="2019-11-25T12:58:30.020Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="饮杯梦回酒">
-<meta name="twitter:description" content="jquery实现的图片相册代码                                     h2 {         font-size: 40px;         margin: 50px;         color: #333;       }       span.reference {         font-family: Arial;">
-<meta name="twitter:image" content="http://yoursite.com/photowall/images/album1/thumbs/1.jpg">
-
-
-
-
-
-  
-  
-  <link rel="canonical" href="http://yoursite.com/photowall/"/>
-
-
-
-<script id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  
-  <title> | 饮杯梦回酒</title>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .motion-element,
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
-
-  .use-motion .logo,
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband">
-    </div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">饮杯梦回酒</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-    
-      
-        <p class="site-subtitle">vn.online</p>
-      
-    
-    
-  </div>
-
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-我们">
-
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>我们</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
-
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-照片墙 menu-item-active">
-
-    
-    
-      
-    
-
-    
-
-    <a href="/photowall/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br/>照片墙</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
-</nav>
-
-
-
-</div>
-    </header>
-
-    <!-- <a href="https://github.com/vernll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a> -->
-
-    <a href="https://github.com/vernll" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-
-    
-
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-            
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-    
-    
-    <div class="post-block page">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-        
-        
-          <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html lang="en">
   <head><meta name="generator" content="Hexo 3.9.0">
-    <title>jquery实现的图片相册代码</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="css/lanrenzhijia.css" type="text/css" media="screen">
-    <script type="text/javascript" src="http://www.lanrenzhijia.com/ajaxjs/1.4.2/jquery-1.4.2.min.js"></script>
-    <script src="js/cufon-yui.js" type="text/javascript"></script>
-    <script src="js/Note_this_400.font.js" type="text/javascript"></script>
-    <style type="text/css">
-      h2 {
-        font-size: 40px;
-        margin: 50px;
-        color: #333;
-      }
-      span.reference {
-        font-family: Arial;
-        position: fixed;
-        right: 10px;
-        top: 10px;
-        font-size: 15px;
-      }
-      span.reference a {
-        color: #fff;
-        text-transform: uppercase;
-        text-decoration: none;
-      }
-    </style>
+    <title>Photo Wall Of WRF and YQ</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Photo Wall Of WRF and YQ">
+    <meta name="keywords" content="wrf, yq">
+    <meta name="author" content="Codrops">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css">
   </head>
-
   <body>
-    <h2>Couple Wall</h2>
-    <div id="pp_gallery" class="pp_gallery">
-      <div id="pp_loading" class="pp_loading"></div>
-      <div id="pp_next" class="pp_next"></div>
-      <div id="pp_prev" class="pp_prev"></div>
-      <div id="pp_thumbContainer">
-        <div class="album">
-          <div class="content">
-            <img src="images/album1/thumbs/1.jpg" alt="images/album1/1.jpg">
-            <span>The Sixties by Tetsumo</span>
-          </div>
-          <div class="content">
-            <img src="images/album1/thumbs/2.jpg" alt="images/album1/2.jpg">
-            <span>The Sixties by Tetsumo</span>
-          </div>
-          <div class="content">
-            <img src="images/album1/thumbs/3.jpg" alt="images/album1/3.jpg">
-            <span>The Sixties by Tetsumo</span>
-          </div>
-          <div class="content">
-            <img src="images/album1/thumbs/4.jpg" alt="images/album1/4.jpg">
-            <span>The Sixties by Tetsumo</span>
-          </div>
-          <div class="content">
-            <img src="images/album1/thumbs/5.jpg" alt="images/album1/5.jpg">
-            <span>The Sixties by Tetsumo</span>
-          </div>
-          <div class="content">
-            <img src="images/album1/thumbs/6.jpg" alt="images/album1/6.jpg">
-            <span>The Sixties by Tetsumo</span>
-          </div>
-          <div class="descr">
-            The Sixties
-          </div>
-        </div>
+    <div class="content">
+      <header>
+        <h1>A Fascinating World</h1>
+        <span>Photo Wall Of WRF and YQ</span>
+      </header>
+      <div class="iw_wrapper">
+        <ul class="iw_thumbs" id="iw_thumbs">
+          <a><img src="images/thumbs/2019112501.jpg" data-img="images/full/2019112501.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/2019112502.jpg" data-img="images/full/2019112502.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/2019112503.jpg" data-img="images/full/2019112503.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/2019112504.jpg" data-img="images/full/2019112504.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/2019112505.jpg" data-img="images/full/2019112505.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/2019112506.jpg" data-img="images/full/2019112506.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
 
-        <div class="album">
-          <div class="content">
-            <img src="images/album2/thumbs/1.jpg" alt="images/album2/1.jpg">
-            <span>Butterfly Girl</span>
-          </div>
-          <div class="content">
-            <img src="images/album2/thumbs/2.jpg" alt="images/album2/2.jpg">
-            <span>Mmmmmmh Strawberries</span>
-          </div>
-          <div class="content">
-            <img src="images/album2/thumbs/3.jpg" alt="images/album2/3.jpg">
-            <span>Polaroid in Picture</span>
-          </div>
-          <div class="content">
-            <img src="images/album2/thumbs/4.jpg" alt="images/album2/4.jpg">
-            <span>Girl with brown hair</span>
-          </div>
-          <div class="content">
-            <img src="images/album2/thumbs/5.jpg" alt="images/album2/5.jpg">
-            <span>Hair up</span>
-          </div>
-          <div class="content">
-            <img src="images/album2/thumbs/6.jpg" alt="images/album2/6.jpg">
-            <span>Smiling Girl</span>
-          </div>
-          <div class="descr">
-            Portraits
-          </div>
-        </div>
-
-        <div id="pp_back" class="pp_back">Albums</div>
-      </div>
-    </div>
-
-    <!-- The JavaScript -->
-    <script type="text/javascript">
-      Cufon.replace('span');
-      Cufon.replace('h2', {
-        textShadow: '0px 1px #ddd'
-      });
-    </script>
-    <script src="js/jquery.transform-0.8.0.min.js"></script>
-    <script type="text/javascript">
-      $(function() {
-        var ie = false;
-        if ($.browser.msie) {
-          ie = true;
-        }
-        //current album/image displayed
-        var enableshow = true;
-        var current = -1;
-        var album = -1;
-        //windows width
-        var w_width = $(window).width();
-        //caching
-        var $albums = $('#pp_thumbContainer div.album');
-        var $loader = $('#pp_loading');
-        var $next = $('#pp_next');
-        var $prev = $('#pp_prev');
-        var $images = $('#pp_thumbContainer div.content img');
-        var $back = $('#pp_back');
-
-        //we wnat to spread the albums through the page equally
-        //number of spaces to divide with:number of albums plus 1
-        var nmb_albums = $albums.length;
-        var spaces = w_width / (nmb_albums + 1);
-        var cnt = 0;
-        //preload all the images (thumbs)
-        var nmb_images = $images.length;
-        var loaded = 0;
-        $images.each(function(i) {
-          var $image = $(this);
-          $('<img />')
-            .load(function() {
-              ++loaded;
-              if (loaded == nmb_images) {
-                //let's spread the albums equally on the bottom of the page
-                $albums
-                  .each(function() {
-                    var $this = $(this);
-                    ++cnt;
-                    var left = spaces * cnt - $this.width() / 2;
-                    $this.css('left', left + 'px');
-                    $this.stop().animate({ bottom: '0px' }, 500);
-                  })
-                  .unbind('click')
-                  .bind('click', spreadPictures);
-                //also rotate each picture of an album with a random number of degrees
-                $images.each(function() {
-                  var $this = $(this);
-                  var r = Math.floor(Math.random() * 41) - 20;
-                  $this.transform({ rotate: r + 'deg' });
-                });
-              }
-            })
-            .attr('src', $image.attr('src'));
-        });
-
-        function spreadPictures() {
-          var $album = $(this);
-          //track which album is opened
-          album = $album.index();
-          //hide all the other albums
-          $albums
-            .not($album)
-            .stop()
-            .animate({ bottom: '-90px' }, 300);
-          $album.unbind('click');
-          //now move the current album to the left
-          //and at the same time spread its images through
-          //the window, rotating them randomly. Also hide the description of the album
-
-          //store the current left for the reverse operation
-          $album
-            .data('left', $album.css('left'))
-            .stop()
-            .animate({ left: '0px' }, 500)
-            .find('.descr')
-            .stop()
-            .animate({ bottom: '-30px' }, 200);
-          var total_pic = $album.find('.content').length;
-          var cnt = 0;
-          //each picture
-          $album.find('.content').each(function() {
-            var $content = $(this);
-            ++cnt;
-            //window width
-            var w_width = $(window).width();
-            var spaces = w_width / (total_pic + 1);
-            var left = spaces * cnt - 140 / 2;
-            var r = Math.floor(Math.random() * 41) - 20;
-            //var r = Math.floor(Math.random()*81)-40;
-            $content
-              .stop()
-              .animate({ left: left + 'px' }, 500, function() {
-                $(this)
-                  .unbind('click')
-                  .bind('click', showImage)
-                  .unbind('mouseenter')
-                  .bind('mouseenter', upImage)
-                  .unbind('mouseleave')
-                  .bind('mouseleave', downImage);
-              })
-              .find('img')
-              .stop()
-              .animate({ rotate: r + 'deg' }, 300);
-            $back.stop().animate({ left: '0px' }, 300);
-          });
-        }
-
-        //back to albums
-        //the current album gets its innitial left position
-        //all the other albums slide up
-        //the current image slides out
-        $back.bind('click', function() {
-          $back.stop().animate({ left: '-100px' }, 300);
-          hideNavigation();
-          //there's a picture being displayed
-          //lets slide the current one up
-          if (current != -1) {
-            hideCurrentPicture();
-          }
-
-          var $current_album = $('#pp_thumbContainer div.album:nth-child(' + parseInt(album + 1) + ')');
-          $current_album
-            .stop()
-            .animate({ left: $current_album.data('left') }, 500)
-            .find('.descr')
-            .stop()
-            .animate({ bottom: '0px' }, 500);
-
-          $current_album.unbind('click').bind('click', spreadPictures);
-
-          $current_album.find('.content').each(function() {
-            var $content = $(this);
-            $content.unbind('mouseenter mouseleave click');
-            $content.stop().animate({ left: '0px' }, 500);
-          });
-
-          $albums
-            .not($current_album)
-            .stop()
-            .animate({ bottom: '0px' }, 500);
-        });
-
-        //displays an image (clicked thumb) in the center of the page
-        //if nav is passed, then displays the next / previous one of the
-        //current album
-        function showImage(nav) {
-          if (!enableshow) return;
-          enableshow = false;
-          if (nav == 1) {
-            //reached the first one
-            if (current == 0) {
-              enableshow = true;
-              return;
-            }
-            var $content = $('#pp_thumbContainer div.album:nth-child(' + parseInt(album + 1) + ')').find(
-              '.content:nth-child(' + parseInt(current) + ')'
-            );
-            //reached the last one
-            if ($content.length == 0) {
-              enableshow = true;
-              current -= 2;
-              return;
-            }
-          } else var $content = $(this);
-
-          //show ajax loading image
-          $loader.show();
-
-          //there's a picture being displayed
-          //lets slide the current one up
-          if (current != -1) {
-            hideCurrentPicture();
-          }
-
-          current = $content.index();
-          var $thumb = $content.find('img');
-          var imgL_source = $thumb.attr('alt');
-          var imgL_description = $thumb.next().html();
-          //preload the large image to show
-          $('<img style=""/>')
-            .load(function() {
-              var $imgL = $(this);
-              //resize the image based on the windows size
-              resize($imgL);
-              //create an element to include the large image
-              //and its description
-              var $preview = $('<div />', {
-                id: 'pp_preview',
-                className: 'pp_preview',
-                html: '<div class="pp_descr"><span>' + imgL_description + '</span></div>',
-                style: 'visibility:hidden;'
-              });
-              $preview.prepend($imgL);
-              $('#pp_gallery').prepend($preview);
-
-              var largeW = $imgL.width() + 20;
-              var largeH = $imgL.height() + 10 + 45;
-              //change the properties of the wrapping div
-              //to fit the large image sizes
-              $preview.css({
-                width: largeW + 'px',
-                height: largeH + 'px',
-                marginTop: -largeH / 2 - 20 + 'px',
-                marginLeft: -largeW / 2 + 'px',
-                visibility: 'visible'
-              });
-              Cufon.replace('.pp_descr');
-              //show navigation
-              showNavigation();
-
-              //hide the ajax image loading
-              $loader.hide();
-
-              //slide up (also rotating) the large image
-              var r = Math.floor(Math.random() * 41) - 20;
-              if (ie)
-                var param = {
-                  top: '50%'
-                };
-              else
-                var param = {
-                  top: '50%',
-                  rotate: r + 'deg'
-                };
-              $preview.stop().animate(param, 500, function() {
-                enableshow = true;
-              });
-            })
-            .error(function() {
-              //error loading image. Maybe show a message : 'no preview available'?
-            })
-            .attr('src', imgL_source);
-        }
-
-        //click next image
-        $next.bind('click', function() {
-          current += 2;
-          showImage(1);
-        });
-
-        //click previous image
-        $prev.bind('click', function() {
-          showImage(1);
-        });
-
-        //slides up the current picture
-        function hideCurrentPicture() {
-          current = -1;
-          var r = Math.floor(Math.random() * 41) - 20;
-          if (ie)
-            var param = {
-              top: '-150%'
-            };
-          else
-            var param = {
-              top: '-150%',
-              rotate: r + 'deg'
-            };
-          $('#pp_preview')
-            .stop()
-            .animate(param, 500, function() {
-              $(this).remove();
-            });
-        }
-
-        //shows the navigation buttons
-        function showNavigation() {
-          $next.stop().animate({ right: '0px' }, 100);
-          $prev.stop().animate({ left: '0px' }, 100);
-        }
-
-        //hides the navigation buttons
-        function hideNavigation() {
-          $next.stop().animate({ right: '-40px' }, 300);
-          $prev.stop().animate({ left: '-40px' }, 300);
-        }
-
-        //mouseenter event on each thumb
-        function upImage() {
-          var $content = $(this);
-          $content
-            .stop()
-            .animate(
-              {
-                marginTop: '-70px'
-              },
-              400
-            )
-            .find('img')
-            .stop()
-            .animate({ rotate: '0deg' }, 400);
-        }
-
-        //mouseleave event on each thumb
-        function downImage() {
-          var $content = $(this);
-          var r = Math.floor(Math.random() * 41) - 20;
-          $content
-            .stop()
-            .animate(
-              {
-                marginTop: '0px'
-              },
-              400
-            )
-            .find('img')
-            .stop()
-            .animate({ rotate: r + 'deg' }, 400);
-        }
-
-        //resize function based on windows size
-        function resize($image) {
-          var widthMargin = 50;
-          var heightMargin = 200;
-
-          var windowH = $(window).height() - heightMargin;
-          var windowW = $(window).width() - widthMargin;
-          var theImage = new Image();
-          theImage.src = $image.attr('src');
-          var imgwidth = theImage.width;
-          var imgheight = theImage.height;
-
-          if (imgwidth > windowW || imgheight > windowH) {
-            if (imgwidth > imgheight) {
-              var newwidth = windowW;
-              var ratio = imgwidth / windowW;
-              var newheight = imgheight / ratio;
-              theImage.height = newheight;
-              theImage.width = newwidth;
-              if (newheight > windowH) {
-                var newnewheight = windowH;
-                var newratio = newheight / windowH;
-                var newnewwidth = newwidth / newratio;
-                theImage.width = newnewwidth;
-                theImage.height = newnewheight;
-              }
-            } else {
-              var newheight = windowH;
-              var ratio = imgheight / windowH;
-              var newwidth = imgwidth / ratio;
-              theImage.height = newheight;
-              theImage.width = newwidth;
-              if (newwidth > windowW) {
-                var newnewwidth = windowW;
-                var newratio = newwidth / windowW;
-                var newnewheight = newheight / newratio;
-                theImage.height = newnewheight;
-                theImage.width = newnewwidth;
-              }
-            }
-          }
-          $image.css({ width: theImage.width + 'px', height: theImage.height + 'px' });
-        }
-      });
-    </script>
-  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/Epsilon2.1.model.json"},"display":{"position":"right","width":248,"height":520},"mobile":{"show":true}});</script></body>
-</html>
-
-        
-      </div>
-      
-      
-      
-    </div>
-    
-
-
-
-    
-    
-    
-  </div>
-
-
-          </div>
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
+          <a><img src="images/thumbs/8.jpg" data-img="images/full/8.jpg" alt="Thumb8">
+            <div>
+              <h2>Happiness</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/9.jpg" data-img="images/full/9.jpg" alt="Thumb9">
+            <div>
+              <h2>Greatness</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/10.jpg" data-img="images/full/10.jpg" alt="Thumb10">
+            <div>
+              <h2>Abstraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/11.jpg" data-img="images/full/11.jpg" alt="Thumb11">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/1.jpg" data-img="images/full/1.jpg" alt="Thumb12">
+            <div>
+              <h2>Virtue</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/13.jpg" data-img="images/full/13.jpg" alt="Thumb13">
+            <div>
+              <h2>Happiness</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/14.jpg" data-img="images/full/14.jpg" alt="Thumb14">
+            <div>
+              <h2>Serenity</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/2.jpg" data-img="images/full/2.jpg" alt="Thumb1">
+            <div>
+              <h2>Virtue</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/4.jpg" data-img="images/full/4.jpg" alt="Thumb2">
+            <div>
+              <h2>Serenity</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
+          <a><img src="images/thumbs/6.jpg" data-img="images/full/6.jpg" alt="Thumb3">
+            <div>
+              <h2>Attraction</h2>
+              <p>Far far away, behind the word mountains there live the blind texts.</p>
+            </div></a>
         </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  
-    <img class="site-author-image" itemprop="image"
-      src="/uploads/wrf.jpg"
-      alt="o1wish"/>
-  
-  <p class="site-author-name" itemprop="name">o1wish</p>
-  <div class="site-description motion-element" itemprop="description"></div>
-</div>
-
-
-  <nav class="site-state motion-element">
-    
-      <div class="site-state-item site-state-posts">
-        
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">4</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
       </div>
-    
-
-    
-      
-      
-      <div class="site-state-item site-state-categories">
-        
-          
-            <a href="/categories/">
-          
-        
-        
-        
-          
-        
-          
-        
-          
-        
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span>
-        </a>
+      <div id="iw_ribbon" class="iw_ribbon">
+        <span class="iw_close"></span>
+        <span class="iw_zoom">Click thumb to zoom</span>
       </div>
-    
-
-    
-      
-      
-      <div class="site-state-item site-state-tags">
-        
-          
-            <a href="/tags/">
-          
-        
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">标签</span>
-        </a>
-      </div>
-    
-  </nav>
-
-
-
-
-
-
-
-  <div class="links-of-author motion-element">
-    
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://github.com/vernll/c" title="GitHub &rarr; https://github.com/vernll/c" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" title="QQ &rarr; http://wpa.qq.com/msgrd?v=3&uin=1767807284&site=qq&menu=yes" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://www.jianshu.com/u/d91c48f2547f" title="简书 &rarr; https://www.jianshu.com/u/d91c48f2547f" rel="noopener" target="_blank"><i class="fa fa-fw fa-align-right"></i>简书</a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://juejin.im/user/5c75efd9e51d4565fd268e43" title="掘金 &rarr; https://juejin.im/user/5c75efd9e51d4565fd268e43" rel="noopener" target="_blank"><i class="fa fa-fw fa-pied-piper"></i>掘金</a>
-      </span>
-    
-  </div>
-
-
-
-
-
-
-
-          
-          
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">Couple Wall</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">o1wish</span>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
-    
-
-    
-
-    
-  </div>
-
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-
-
-  <script src="/js/utils.js?v=7.2.0"></script>
-
-  <script src="/js/motion.js?v=7.2.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/affix.js?v=7.2.0"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.2.0"></script>
-<script src="/js/post-details.js?v=7.2.0"></script>
-
-
-
-  <script src="/js/next-boot.js?v=7.2.0"></script>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/Epsilon2.1.model.json"},"display":{"position":"right","width":248,"height":520},"mobile":{"show":true}});</script></body>
+    <div class="footer">
+      <a class="left" href="javascript:;" target="_blank" rel="noopener"><span>&laquo; Previous Memorizes:</span>Moving Camera</a>
+      <a href="javascript:;" target="_blank" rel="noopener"><strong>back to the Codrops tutorial</strong></a>
+      <a href="javascript:;" target="_blank" rel="noopener">Photos by o1wish</a>
+    </div>
+    <script type="text/javascript" src="../js/jquery-3.4.1.min"></script>
+    <script type="text/javascript" src="../js/jquery.masonry.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript">
+      $(window).load(function() {
+        var $iw_thumbs = $('#iw_thumbs'),
+          $iw_ribbon = $('#iw_ribbon'),
+          $iw_ribbon_close = $iw_ribbon.children('span.iw_close'),
+          $iw_ribbon_zoom = $iw_ribbon.children('span.iw_zoom');
+
+        ImageWall = (function() {
+          // window width and height
+          var w_dim,
+            // index of current image
+            current = -1,
+            isRibbonShown = false,
+            isFullMode = false,
+            // ribbon / images animation settings
+            ribbonAnim = { speed: 500, easing: 'easeOutExpo' },
+            imgAnim = { speed: 400, easing: 'jswing' },
+            // init function : call masonry, calculate window dimentions, initialize some events
+            init = function() {
+              $iw_thumbs.imagesLoaded(function() {
+                $iw_thumbs.masonry({
+                  isAnimated: true
+                });
+              });
+              getWindowsDim();
+              initEventsHandler();
+            },
+            // calculate window dimentions
+            getWindowsDim = function() {
+              w_dim = {
+                width: $(window).width(),
+                height: $(window).height()
+              };
+            },
+            // initialize some events
+            initEventsHandler = function() {
+              // click on a image
+              // $iw_thumbs.delegate('a', 'touch', function() {
+              // 	if($iw_ribbon.is(':animated')) return false;
+
+              // 	var $el = $(this);
+
+              // 	if($el.data('ribbon')) {
+              // 		showFullImage($el);
+              // 	}
+              // 	else if(!isRibbonShown) {
+              // 		isRibbonShown = true;
+
+              // 		$el.data('ribbon',true);
+
+              // 		// set the current
+              // 		current = $el.index();
+
+              // 		showRibbon($el);
+              // 	}
+              // });
+
+              $('#iw_thumbs a').on('tap', function() {
+                if ($iw_ribbon.is(':animated')) return false;
+
+                var $el = $(this);
+
+                if ($el.data('ribbon')) {
+                  showFullImage($el);
+                } else if (!isRibbonShown) {
+                  isRibbonShown = true;
+
+                  $el.data('ribbon', true);
+
+                  // set the current
+                  current = $el.index();
+
+                  showRibbon($el);
+                }
+              });
+
+              // click ribbon close
+              $iw_ribbon_close.bind('click', closeRibbon);
+
+              // on window resize we need to recalculate the window dimentions
+              $(window)
+                .bind('resize', function() {
+                  getWindowsDim();
+                  if ($iw_ribbon.is(':animated')) return false;
+                  closeRibbon();
+                })
+                .bind('scroll', function() {
+                  if ($iw_ribbon.is(':animated')) return false;
+                  closeRibbon();
+                });
+            },
+            showRibbon = function($el) {
+              var $img = $el.children('img'),
+                $descrp = $img.next();
+
+              // fadeOut all the other images
+              $iw_thumbs
+                .children('a')
+                .not($el)
+                .animate({ opacity: 0.2 }, imgAnim.speed);
+
+              // increase the image z-index, and set the height to 100px (default height)
+              $img
+                .css('z-index', 100)
+                .data('originalHeight', $img.height())
+                .stop()
+                .animate(
+                  {
+                    height: '100px'
+                  },
+                  imgAnim.speed,
+                  imgAnim.easing
+                );
+
+              // the ribbon will animate from the left or right
+              // depending on the position of the image
+              var ribbonCssParam = {
+                  top: $el.offset().top - $(window).scrollTop() - 6 + 'px'
+                },
+                descriptionCssParam,
+                dir;
+
+              if ($el.offset().left < w_dim.width / 2) {
+                dir = 'left';
+                ribbonCssParam.left = 0;
+                ribbonCssParam.right = 'auto';
+              } else {
+                dir = 'right';
+                ribbonCssParam.right = 0;
+                ribbonCssParam.left = 'auto';
+              }
+
+              $iw_ribbon
+                .css(ribbonCssParam)
+                .show()
+                .stop()
+                .animate({ width: '100%' }, ribbonAnim.speed, ribbonAnim.easing, function() {
+                  switch (dir) {
+                    case 'left':
+                      descriptionCssParam = {
+                        left: $img.outerWidth(true) + 'px',
+                        'text-align': 'left'
+                      };
+                      break;
+                    case 'right':
+                      descriptionCssParam = {
+                        left: '-200px',
+                        'text-align': 'right'
+                      };
+                      break;
+                  }
+                  $descrp.css(descriptionCssParam).fadeIn();
+                  // show close button and zoom
+                  $iw_ribbon_close.show();
+                  $iw_ribbon_zoom.show();
+                });
+            },
+            // close the ribbon
+            // when in full mode slides in the middle of the page
+            // when not slides left
+            closeRibbon = function() {
+              isRibbonShown = false;
+
+              $iw_ribbon_close.hide();
+              $iw_ribbon_zoom.hide();
+
+              if (!isFullMode) {
+                // current wall image
+                var $el = $iw_thumbs.children('a').eq(current);
+
+                resetWall($el);
+
+                // slide out ribbon
+                $iw_ribbon.stop().animate({ width: '0%' }, ribbonAnim.speed, ribbonAnim.easing);
+              } else {
+                $iw_ribbon.stop().animate(
+                  {
+                    opacity: 0.8,
+                    height: '0px',
+                    marginTop: w_dim.height / 2 + 'px' // half of window height
+                  },
+                  ribbonAnim.speed,
+                  function() {
+                    $iw_ribbon
+                      .css({
+                        width: '0%',
+                        height: '126px',
+                        'margin-top': '0px'
+                      })
+                      .children('img')
+                      .remove();
+                  }
+                );
+
+                isFullMode = false;
+              }
+            },
+            resetWall = function($el) {
+              var $img = $el.children('img'),
+                $descrp = $img.next();
+
+              $el.data('ribbon', false);
+
+              // reset the image z-index and height
+              $img
+                .css('z-index', 1)
+                .stop()
+                .animate(
+                  {
+                    height: $img.data('originalHeight')
+                  },
+                  imgAnim.speed,
+                  imgAnim.easing
+                );
+
+              // fadeOut the description
+              $descrp.fadeOut();
+
+              // fadeIn all the other images
+              $iw_thumbs
+                .children('a')
+                .not($el)
+                .animate({ opacity: 1 }, imgAnim.speed);
+            },
+            showFullImage = function($el) {
+              isFullMode = true;
+
+              $iw_ribbon_close.hide();
+
+              var $img = $el.children('img'),
+                large = $img.data('img'),
+                // add a loading image on top of the image
+                $loading = $('<span class="iw_loading"></span>');
+
+              $el.append($loading);
+
+              // preload large image
+              $('<img/>')
+                .load(function() {
+                  var $largeImage = $(this);
+
+                  $loading.remove();
+
+                  $iw_ribbon_zoom.hide();
+
+                  resizeImage($largeImage);
+
+                  // reset the current image in the wall
+                  resetWall($el);
+
+                  // animate ribbon in and out
+                  $iw_ribbon.stop().animate(
+                    {
+                      opacity: 1,
+                      height: '0px',
+                      marginTop: '63px' // half of ribbons height
+                    },
+                    ribbonAnim.speed,
+                    function() {
+                      // add the large image to the DOM
+                      $iw_ribbon.prepend($largeImage);
+
+                      $iw_ribbon_close.show();
+
+                      $iw_ribbon.animate(
+                        {
+                          height: '100%',
+                          marginTop: '0px',
+                          top: '0px'
+                        },
+                        ribbonAnim.speed
+                      );
+                    }
+                  );
+                })
+                .attr('src', large);
+            },
+            resizeImage = function($image) {
+              var widthMargin = 100,
+                heightMargin = 100,
+                windowH = w_dim.height - heightMargin,
+                windowW = w_dim.width - widthMargin,
+                theImage = new Image();
+
+              theImage.src = $image.attr('src');
+
+              var imgwidth = theImage.width,
+                imgheight = theImage.height;
+
+              if (imgwidth > windowW || imgheight > windowH) {
+                if (imgwidth > imgheight) {
+                  var newwidth = windowW,
+                    ratio = imgwidth / windowW,
+                    newheight = imgheight / ratio;
+
+                  theImage.height = newheight;
+                  theImage.width = newwidth;
+
+                  if (newheight > windowH) {
+                    var newnewheight = windowH,
+                      newratio = newheight / windowH,
+                      newnewwidth = newwidth / newratio;
+
+                    theImage.width = newnewwidth;
+                    theImage.height = newnewheight;
+                  }
+                } else {
+                  var newheight = windowH,
+                    ratio = imgheight / windowH,
+                    newwidth = imgwidth / ratio;
+
+                  theImage.height = newheight;
+                  theImage.width = newwidth;
+
+                  if (newwidth > windowW) {
+                    var newnewwidth = windowW,
+                      newratio = newwidth / windowW,
+                      newnewheight = newheight / newratio;
+
+                    theImage.height = newnewheight;
+                    theImage.width = newnewwidth;
+                  }
+                }
+              }
+
+              $image.css({
+                width: theImage.width + 'px',
+                height: theImage.height + 'px',
+                'margin-left': -theImage.width / 2 + 'px',
+                'margin-top': -theImage.height / 2 + 'px'
+              });
+            };
+
+          return { init: init };
+        })();
+
+        ImageWall.init();
+      });
+    </script>
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/Epsilon2.1.model.json"},"display":{"position":"right","width":124,"height":260},"mobile":{"show":true}});</script></body>
 </html>
